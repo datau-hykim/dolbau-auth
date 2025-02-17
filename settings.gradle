@@ -1,0 +1,3 @@
+rootProject.name = 'dolbau-auth'
+
+include 'common'

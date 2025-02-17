@@ -1,0 +1,97 @@
+# default
+# temp local https
+server:
+  ssl:
+    enabled: true
+    key-store: keystore.p12
+    key-store-password: 134679
+    key-store-type: PKCS12
+    key-alias: bns-ssl
+  port: 8080
+
+spring:
+  application:
+    name: dolbau-auth
+  security:
+    oauth2:
+      client:
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+          apple:
+            authorization-uri: https://appleid.apple.com/auth/authorize?scope=name%20email&response_mode=form_post
+            token-uri: https://appleid.apple.com/auth/token
+            user-info-uri: https://appleid.apple.com/auth/keys
+        registration:
+          kakao:
+            client-id: 5e5302970b049041bcaa471b68b5a409
+            client-secret: ZXz22CfV7tyX0WiPjQIXtfmd1UWoerdn
+            client-authentication-method: client_secret_post
+            redirect-uri: https://localhost:8080/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            client-name: kakao
+            scope:
+              - account_email
+              - profile_nickname
+              - profile_image
+          apple:
+            client-id: dev.dolbau.datau.com
+            client-secret: AuthKey_987VR9529L.p8
+            redirect-uri: https://example.localhost:8080/login/oauth2/code/apple
+            authorization-grant-type: authorization_code
+            client-name: Apple
+            client-authentication-method: POST
+            scope:
+              - email
+              - name
+      external-service:
+        apple:
+          team-id: U45L4UHSF2
+          client-id: dev.dolbau.datau.com
+          key-id: 987VR9529L
+          key-path: static/apple/AuthKey_987VR9529L.p8
+          auth-url: https://appleid.apple.com
+  datasource:
+    url: jdbc:mysql://eventu-dev-dbms.mysql.database.azure.com:3306/eventu?allowMultiQueries=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: eventu
+    password: datau2018&
+    hikari:
+      connection-timeout: 3000
+      validation-timeout: 3000
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 200000
+      max-lifetime: 240000
+      pool-name: myPool
+  web:
+    resources:
+      # ResourceHttpRequestHandler 매핑 여부
+      add-mappings: false
+  mvc:
+    # handler 미매핑 시 throw error 여부
+    throw-exception-if-no-handler-found: true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+# mybatis
+mybatis:
+  mapper-locations: "classpath:mapper/**.xml"
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+crypto:
+  secret: "datauniverse2024" # 128 bits
+  iv: "datauniverse2024" # 128 bits
+
+jwt:
+  secret: "datauniverse2024datauniverse2024" # 256 bits
+  access-token-expiration-period: 21600
+  refresh-token-expiration-period: 7776000  # 90일, 90 * 24 * 60 * 60
+
