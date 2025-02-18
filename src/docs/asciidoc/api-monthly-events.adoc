@@ -1,0 +1,16 @@
+= Monthly-Event API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 월간 이벤트 상세
+
+=== Request
+
+include::{snippets}/monthly-events/getMonthlyEventById/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/monthly-events/getMonthlyEventById/http-response.adoc[]
